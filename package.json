@@ -1,0 +1,29 @@
+{
+  "name": "lancero-lib",
+  "version": "1.0.0",
+  "description": "Official Node.js library for Lancero.app",
+  "main": "dist/index.js",
+  "repository": "https://github.com/driaug/lancero-lib",
+  "author": "driaug <augustyns.dries@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "test": "eslint . --fix&&jest",
+    "prepublishOnly": "npm run test&&npm run build",
+    "deploy": "npm publish --access public",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "axios": "^0.22.0",
+    "tslib": "^2.3.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.0.0",
+    "jest": "^27.2.5",
+    "prettier": "^2.4.1",
+    "ts-jest": "^27.0.5",
+    "typescript": "^4.4.3"
+  }
+}
