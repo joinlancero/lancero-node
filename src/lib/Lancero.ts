@@ -31,24 +31,16 @@ export class Lancero {
    * Resources
    */
   Waitlist = {
-    claim: (code: string) => {
-      return new Promise((resolve, reject) => {
-        this.client
-          .post("waitlists", {
-            code,
-          })
-          .then((res) => {
-            if (res.status === 200) {
-              resolve({ success: true });
-            } else {
-              reject({ success: false });
-            }
-          });
+    claim: (identifier: string, code: string) => {
+      return request<{ success: true } | { success: false }>(this.client, {
+        method: "POST",
+        url: "/waitlists",
+        body: {
+          Test: "BRRr",
+          test2: 123,
+          test: { testt: "123" },
+        },
       });
     },
-  };
-
-  Referral = {
-    claim: (code: string) => {},
   };
 }

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Official Node.js library for Lancero.app",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": "https://github.com/driaug/lancero-lib",
   "author": "driaug <augustyns.dries@gmail.com>",
   "license": "MIT",
@@ -13,11 +14,17 @@
     "deploy": "npm publish --access public",
     "build": "tsc"
   },
+  "files": [
+    "package.json",
+    "dist",
+    "README.md"
+  ],
   "dependencies": {
     "axios": "^0.22.0",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
+    "@types/jest": "^27.0.2",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.0.0",
