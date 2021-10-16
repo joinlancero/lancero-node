@@ -3,8 +3,8 @@ import { API_URL } from "./constants";
 import { request } from "../utils/request";
 
 export class Lancero {
-  key: string;
-  client: AxiosInstance;
+  private readonly key: string;
+  private readonly client: AxiosInstance;
 
   constructor(key: string) {
     this.key = key;
@@ -26,16 +26,32 @@ export class Lancero {
    */
   Waitlist = {
     join: async (email: string) => {
-      return await request<
-        | { success: true; data: { email: string } }
-        | { success: false; error: string }
-      >(this.client, {
-        method: "POST",
-        url: "/waitlists/join",
-        body: {
-          email,
-        },
-      });
+      return await request<{ success: true; data: { email: string } }>(
+        this.client,
+        {
+          method: "POST",
+          url: "/waitlists/join",
+          body: {
+            email,
+          },
+        }
+      );
+    },
+  };
+
+  Codes = {
+    claim: async (code: string, email: string) => {
+      return await request<{ success: true; data: { email: string } }>(
+        this.client,
+        {
+          method: "POST",
+          url: "/codes/claim",
+          body: {
+            code,
+            email,
+          },
+        }
+      );
     },
   };
 }
