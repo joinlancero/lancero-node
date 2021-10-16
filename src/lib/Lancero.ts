@@ -1,7 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import { API_URL } from "./constants";
 import { request } from "../utils/request";
-import { TokenError } from "../errors/TokenError";
 
 export class Lancero {
   key: string;
@@ -18,27 +17,23 @@ export class Lancero {
       withCredentials: true,
     });
 
-    request(this.client, { method: "GET", url: "/projects" })
-      .then(() => {
-        console.log("Connection made");
-      })
-      .catch(() => {
-        throw new TokenError();
-      });
+    // We need a way to verify the API key during construction, async in constructors does not work
+    //void request(this.client, { method: "POST", url: "/auth/secret" });
   }
 
   /**
    * Resources
    */
   Waitlist = {
-    claim: (identifier: string, code: string) => {
-      return request<{ success: true } | { success: false }>(this.client, {
+    join: async (email: string) => {
+      return await request<
+        | { success: true; data: { email: string } }
+        | { success: false; error: string }
+      >(this.client, {
         method: "POST",
-        url: "/waitlists",
+        url: "/waitlists/join",
         body: {
-          Test: "BRRr",
-          test2: 123,
-          test: { testt: "123" },
+          email,
         },
       });
     },

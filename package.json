@@ -1,10 +1,9 @@
 {
-  "name": "lancero-lib",
+  "name": "@lancero/node",
   "version": "1.0.0",
   "description": "Official Node.js library for Lancero.app",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": "https://github.com/driaug/lancero-lib",
   "author": "driaug <augustyns.dries@gmail.com>",
   "license": "MIT",
   "private": false,
@@ -32,5 +31,14 @@
     "prettier": "^2.4.1",
     "ts-jest": "^27.0.5",
     "typescript": "^4.4.3"
-  }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "keywords": [
+    "lancero",
+    "beta",
+    "api"
+  ]
 }

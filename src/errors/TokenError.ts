@@ -1,6 +1,8 @@
-export class TokenError extends Error {
+import { LanceroError } from "./LanceroError";
+
+export class TokenError extends LanceroError {
   constructor() {
-    super("That token is not valid");
+    super("Invalid API secret provided");
 
     Object.setPrototypeOf(this, TokenError.prototype);
   }

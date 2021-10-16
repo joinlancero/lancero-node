@@ -1,14 +1,28 @@
-import { AxiosInstance } from "axios";
+import { AxiosError, AxiosInstance } from "axios";
 import { RequestType } from "../types/request";
+import { TokenError } from "../errors/TokenError";
+import { IErrorBody } from "../types/error";
 
 export function request<T>(client: AxiosInstance, request: RequestType) {
   return new Promise<T>((resolve, reject) => {
-    client.request<T>({ url: request.url, method: request.method }).then((res) => {
-      if (res.status === 200) {
+    const config =
+      request.method === "GET"
+        ? { method: request.method, url: request.url }
+        : { method: request.method, url: request.url, data: request.body };
+    client
+      .request<
+        { [key: string]: string | number | object },
+        { status: number; data: T }
+      >(config)
+      .then((res) => {
         resolve(res.data);
-      } else {
-        reject("Request failed");
-      }
-    });
+      })
+      .catch((err: AxiosError<IErrorBody>) => {
+        if (err.response?.status === 401) {
+          reject(new TokenError());
+        }
+
+        reject(err.response?.data.message);
+      });
   });
 }
