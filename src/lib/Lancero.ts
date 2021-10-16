@@ -25,6 +25,10 @@ export class Lancero {
    * Resources
    */
   Waitlist = {
+    /**
+     * Use this function to add someone to the waitinglist
+     * @param {string} email The email of the user that wants to sign up for the waitinglist
+     */
     join: async (email: string) => {
       return await request<{ success: true; data: { email: string } }>(
         this.client,
@@ -40,6 +44,11 @@ export class Lancero {
   };
 
   Codes = {
+    /**
+     * Use this function to claim a code
+     * @param code {string} The code you want to claim
+     * @param email {string} The email you want to associate the claim with
+     */
     claim: async (code: string, email: string) => {
       return await request<{ success: true; data: { email: string } }>(
         this.client,
