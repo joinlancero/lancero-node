@@ -11,7 +11,7 @@ export function request<T>(client: AxiosInstance, request: RequestType) {
         : { method: request.method, url: request.url, data: request.body };
     client
       .request<
-        { [key: string]: string | number | object },
+        { [key: string]: string | number | object | boolean | Date },
         { status: number; data: T }
       >(config)
       .then((res) => {

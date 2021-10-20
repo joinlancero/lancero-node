@@ -24,33 +24,57 @@ export class Lancero {
   /**
    * Resources
    */
-  Waitlist = {
+  Codes = {
     /**
-     * Use this function to add someone to the waitinglist
-     * @param {string} email The email of the user that wants to sign up for the waitinglist
+     * Use this function to find a code
+     * @param {string} code The code you want to look up
      */
-    join: async (email: string) => {
-      return await request<{ success: true; data: { email: string } }>(
+    find: async (code: string) => {
+      return await request<{ success: true; data: { code: any } }>(
+        this.client,
+        {
+          method: "GET",
+          url: `/codes/${code}`,
+        }
+      );
+    },
+    /**
+     * Use this function to generate new codes
+     * @param {number} [amount=1] The amount of codes to generate
+     * @param {Date} [valid_from=undefined] When this code is allowed to be claimed
+     * @param {Date} [valid_until=undefined] When this code is no longer allowed to be c laimed
+     * @param {number} [allowed_claims=1] How many people may claim this code
+     * @param {boolean} [valid=true] Should this code be active? This parameter overwrites all other limits and will always be able to prevent someone from claiming this code.
+     */
+    generate: async (
+      amount?: number,
+      valid_from?: Date,
+      valid_until?: Date,
+      allowed_claims?: number,
+      valid?: boolean
+    ) => {
+      return await request<{ success: true; data: { codes: number } }>(
         this.client,
         {
           method: "POST",
-          url: "/waitlists/join",
+          url: "/codes/generate",
           body: {
-            email,
+            amount,
+            valid_from,
+            valid_until,
+            allowed_claims,
+            valid,
           },
         }
       );
     },
-  };
-
-  Codes = {
     /**
      * Use this function to claim a code
      * @param code {string} The code you want to claim
-     * @param email {string} The email you want to associate the claim with
+     * @param email {string} The email of the customers that wants to claim this code. If it does not yet exist, we will create a new customer.
      */
     claim: async (code: string, email: string) => {
-      return await request<{ success: true; data: { email: string } }>(
+      return await request<{ success: true; data: { claim: any } }>(
         this.client,
         {
           method: "POST",
@@ -58,6 +82,53 @@ export class Lancero {
           body: {
             code,
             email,
+          },
+        }
+      );
+    },
+  };
+
+  Customers = {
+    /**
+     * Use this function to find a customer by their ID
+     * @param id {string} The ID of the customer
+     */
+    findById: async (id: string) => {
+      return await request<{ success: true; data: { customer: any } }>(
+        this.client,
+        {
+          method: "GET",
+          url: `/customers/id/${id}`,
+        }
+      );
+    },
+    /**
+     * Use this function to find a customer by their email
+     * @param email {string} The email of the customer
+     */
+    findByEmail: async (email: string) => {
+      return await request<{ success: true; data: { customer: any } }>(
+        this.client,
+        {
+          method: "GET",
+          url: `/customers/email/${email}`,
+        }
+      );
+    },
+    /**
+     * Use this function to create a new customer
+     * @param email {string} The email of the customer
+     * @param  {boolean} [waitlist=false] Should this customer be placed on the waitlist?
+     */
+    create: async (email: string, waitlist?: boolean) => {
+      return await request<{ success: true; data: { customer: any } }>(
+        this.client,
+        {
+          method: "POST",
+          url: "/customers",
+          body: {
+            email,
+            waitlist: waitlist ?? false,
           },
         }
       );
