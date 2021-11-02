@@ -34,7 +34,7 @@ export class Lancero {
         this.client,
         {
           method: "GET",
-          url: `/codes/${code}`,
+          url: `/codes/code/${code}`,
         }
       );
     },

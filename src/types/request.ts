@@ -3,10 +3,8 @@ interface IRequest {
 }
 
 interface Json {
-  [x: string]: string | number | boolean | Date | Json | JsonArray | undefined;
+  [key: string]: string | number | boolean | Date | object | undefined;
 }
-
-type JsonArray = (string | number | boolean | Date | Json | JsonArray)[];
 
 interface IwithoutBody extends IRequest {
   method: "GET";
