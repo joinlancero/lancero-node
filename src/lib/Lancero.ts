@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 import { API_URL } from "./constants";
 import { request } from "../utils/request";
+import { Icode, Icustomer } from "../types/api";
 
 export class Lancero {
   private readonly key: string;
@@ -24,22 +25,22 @@ export class Lancero {
   /**
    * Resources
    */
-  Codes = {
+  codes = {
     /**
-     * Use this function to find a code
+     * Finds a code
      * @param {string} code The code you want to look up
      */
     find: async (code: string) => {
-      return await request<{ success: true; data: { code: any } }>(
-        this.client,
-        {
-          method: "GET",
-          url: `/codes/code/${code}`,
-        }
-      );
+      return await request<{
+        success: true;
+        code: Icode;
+      }>(this.client, {
+        method: "GET",
+        url: `/codes/code/${code}`,
+      });
     },
     /**
-     * Use this function to generate new codes
+     * Generates new codes
      * @param {number} [amount=1] The amount of codes to generate
      * @param {Date} [valid_from=undefined] When this code is allowed to be claimed
      * @param {Date} [valid_until=undefined] When this code is no longer allowed to be c laimed
@@ -53,85 +54,73 @@ export class Lancero {
       allowed_claims?: number,
       valid?: boolean
     ) => {
-      return await request<{ success: true; data: { codes: number } }>(
-        this.client,
-        {
-          method: "POST",
-          url: "/codes/generate",
-          body: {
-            amount,
-            valid_from,
-            valid_until,
-            allowed_claims,
-            valid,
-          },
-        }
-      );
+      return await request<{
+        success: true;
+        data: { generated_codes: number };
+      }>(this.client, {
+        method: "POST",
+        url: "/codes/generate",
+        body: {
+          amount,
+          valid_from,
+          valid_until,
+          allowed_claims,
+          valid,
+        },
+      });
     },
     /**
-     * Use this function to claim a code
+     * Claims a code
      * @param code {string} The code you want to claim
      * @param email {string} The email of the customers that wants to claim this code. If it does not yet exist, we will create a new customer.
      */
     claim: async (code: string, email: string) => {
-      return await request<{ success: true; data: { claim: any } }>(
-        this.client,
-        {
-          method: "POST",
-          url: "/codes/claim",
-          body: {
-            code,
-            email,
-          },
-        }
-      );
+      return await request<{
+        success: true;
+        customer: string;
+        code: string;
+      }>(this.client, {
+        method: "POST",
+        url: "/codes/claim",
+        body: {
+          code,
+          email,
+        },
+      });
     },
   };
 
-  Customers = {
+  customers = {
     /**
-     * Use this function to find a customer by their ID
-     * @param id {string} The ID of the customer
+     * Finds a customer by their email
+     * @param email {string}
      */
-    findById: async (id: string) => {
-      return await request<{ success: true; data: { customer: any } }>(
-        this.client,
-        {
-          method: "GET",
-          url: `/customers/id/${id}`,
-        }
-      );
+    find: async (email: string) => {
+      return await request<{
+        success: true;
+        customer: Icustomer;
+      }>(this.client, {
+        method: "GET",
+        url: `/customers/email/${email}`,
+      });
     },
     /**
-     * Use this function to find a customer by their email
-     * @param email {string} The email of the customer
-     */
-    findByEmail: async (email: string) => {
-      return await request<{ success: true; data: { customer: any } }>(
-        this.client,
-        {
-          method: "GET",
-          url: `/customers/email/${email}`,
-        }
-      );
-    },
-    /**
-     * Use this function to create a new customer
+     * Creates a new customer
      * @param email {string} The email of the customer
      * @param  {boolean} [waitlist=false] Should this customer be placed on the waitlist?
      */
     create: async (email: string, waitlist?: boolean) => {
-      return await request<{ success: true; data: { customer: any } }>(
-        this.client,
-        {
-          method: "POST",
-          url: "/customers",
-          body: {
-            email,
-            waitlist: waitlist ?? false,
-          },
-        }
-      );
+      return await request<{
+        success: true;
+        customer: Icustomer;
+      }>(this.client, {
+        method: "POST",
+        url: "/customers",
+        body: {
+          email,
+          waitlist: waitlist ?? false,
+        },
+      });
     },
   };
 }
