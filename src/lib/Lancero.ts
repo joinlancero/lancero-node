@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 import { API_URL } from "./constants";
 import { request } from "../utils/request";
-import { Icode, Icustomer } from "../types/api";
+import { ICode, ICustomer, ICustomerWithClaim } from "../types/api";
 
 export class Lancero {
   private readonly key: string;
@@ -33,7 +33,7 @@ export class Lancero {
     find: async (code: string) => {
       return await request<{
         success: true;
-        code: Icode;
+        code: ICode;
       }>(this.client, {
         method: "GET",
         url: `/codes/code/${code}`,
@@ -98,7 +98,7 @@ export class Lancero {
     find: async (email: string) => {
       return await request<{
         success: true;
-        customer: Icustomer;
+        customer: ICustomerWithClaim;
       }>(this.client, {
         method: "GET",
         url: `/customers/email/${email}`,
@@ -112,7 +112,7 @@ export class Lancero {
     create: async (email: string, waitlist?: boolean) => {
       return await request<{
         success: true;
-        customer: Icustomer;
+        customer: ICustomer;
       }>(this.client, {
         method: "POST",
         url: "/customers",
@@ -120,6 +120,21 @@ export class Lancero {
           email,
           waitlist: waitlist ?? false,
         },
+      });
+    },
+  };
+
+  waitlist = {
+    /**
+     * Gets the waitlist
+     */
+    get: async () => {
+      return await request<{
+        success: true;
+        customer: ICustomer[];
+      }>(this.client, {
+        method: "GET",
+        url: `/projects/waitlist`,
       });
     },
   };

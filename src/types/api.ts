@@ -1,4 +1,4 @@
-export interface Icode {
+export interface ICode {
   code: string;
   allowed_claims: number;
   valid_from: Date;
@@ -9,10 +9,13 @@ export interface Icode {
   last_updated_at: Date;
 }
 
-export interface Icustomer {
+export interface ICustomer {
   email: string;
-  has_claimed_code: boolean;
-  claimed_code: { code: string; allowed_claims: number } | undefined;
   created_at: Date;
   last_updated_at: Date;
+}
+
+export interface ICustomerWithClaim extends ICustomer {
+  has_claimed_code: boolean;
+  claimed_code: { code: string; allowed_claims: number } | undefined;
 }

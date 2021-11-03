@@ -18,5 +18,11 @@ test("Making a connection", async () => {
   //const searched_customer = await lancero.customers.find("hello@lancero.app");
 
   // Creating a customer
-  //const created_customer = await lancero.customers.create("inbox@driaug.com", true);
+  //const created_customer = await lancero.customers.create(
+  //  "inbox@driaug.com",
+  //  true
+  //);
+
+  // Get the waitlist
+  //const waitlist = await lancero.waitlist.get();
 });
