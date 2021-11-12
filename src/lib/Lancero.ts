@@ -1,22 +1,23 @@
 import axios, { AxiosInstance } from "axios";
 import { API_URL } from "./constants";
 import { request } from "../utils/request";
-import { ICode, ICustomer, ICustomerWithClaim } from "../types/api";
+import { ICode, ICustomer, ICustomerWithClaim, ISecretCheck } from "../types/api";
 
 export class Lancero {
-  private readonly key: string;
-  private readonly client: AxiosInstance;
+  declare readonly key: string;
+  declare readonly client: AxiosInstance;
 
-  constructor(key: string) {
-    this.key = key;
-
-    this.client = axios.create({
-      baseURL: API_URL,
-      headers: {
-        Authorization: `Bearer ${this.key}`,
-      },
-      withCredentials: true,
-    });
+  constructor(key?: string) {
+    if(key){
+      this.key = key;
+      this.client = axios.create({
+        baseURL: API_URL,
+        headers: {
+          Authorization: `Bearer ${this.key}`,
+        },
+        withCredentials: true,
+      });
+    }
 
     // We need a way to verify the API key during construction, async in constructors does not work
     //void request(this.client, { method: "POST", url: "/auth/secret" });
@@ -25,6 +26,42 @@ export class Lancero {
   /**
    * Resources
    */
+
+
+   createObject = {
+    /**
+     * Verifies a secret
+     * @param secret {string}
+     */
+    create: async (secret:string): Promise<Lancero> => {
+      const test = await this.verifySecret.find(secret)
+      //console.log(test)
+      return new Lancero(secret)
+    }
+   }
+
+   verifySecret = {
+    /**
+     * Verifies a secret
+     * @param secret {string}
+     */
+    find: async (secret: string) => {
+      return await request<{
+        success: true;
+        secretCheck: ISecretCheck;
+      }>(axios.create({
+        baseURL: API_URL,
+        headers: {
+          Authorization: `Bearer ${secret}`,
+        },
+        withCredentials: true,
+      }), {
+        method: "POST",
+        url: `/auth/secret`,
+      });
+    }
+  };
+
   codes = {
     /**
      * Finds a code

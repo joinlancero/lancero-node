@@ -15,6 +15,10 @@ export interface ICustomer {
   last_updated_at: Date;
 }
 
+export interface ISecretCheck{
+  success: boolean;
+}
+
 export interface ICustomerWithClaim extends ICustomer {
   has_claimed_code: boolean;
   claimed_code: { code: string; allowed_claims: number } | undefined;
