@@ -2,11 +2,11 @@ import { Lancero } from "../src";
 
 test("Making a connection", async () => {
   const lancero = new Lancero(
-    "6c26c0d8d6e381fa37088f629682ce8198820e26a52d8a65"
+    "cc355ba5fc5b5527b87d7ef211c5cf6845c2443846390cb4"
   );
 
   // Generating codes
-  //const result = await lancero.codes.generate(5);
+  const result = await lancero.codes.generate(5);
 
   // Searching for a code
   //const code = await lancero.codes.find("ultimate-iron");
@@ -22,6 +22,12 @@ test("Making a connection", async () => {
   //  "inbox@driaug.com",
   //  true
   //);
+
+  // Deleting a customer
+  //const deleted_customer = await lancero.customers.delete('inbox@driaug.com')
+
+  // Deleting a code
+  //const deleted_code = await lancero.codes.delete("elastic-code");
 
   // Get the waitlist
   //const waitlist = await lancero.waitlist.get();

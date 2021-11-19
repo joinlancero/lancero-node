@@ -56,7 +56,7 @@ export class Lancero {
     ) => {
       return await request<{
         success: true;
-        data: { generated_codes: number };
+        data: ICode[];
       }>(this.client, {
         method: "POST",
         url: "/codes/generate",
@@ -88,6 +88,18 @@ export class Lancero {
         },
       });
     },
+
+    /**
+     * Deletes a code
+     * @param code {string} The code to delete
+     */
+    delete: async (code: string) => {
+      return await request<{ success: true; code: ICode }>(this.client, {
+        method: "DELETE",
+        url: "/codes/delete",
+        body: { code },
+      });
+    },
   };
 
   customers = {
@@ -115,26 +127,23 @@ export class Lancero {
         customer: ICustomer;
       }>(this.client, {
         method: "POST",
-        url: "/customers",
+        url: "/customers/create",
         body: {
           email,
           waitlist: waitlist ?? false,
         },
       });
     },
-  };
 
-  waitlist = {
     /**
-     * Gets the waitlist
+     * Deletes a customers
+     * @param email {string} The email of the customer
      */
-    get: async () => {
-      return await request<{
-        success: true;
-        customer: ICustomer[];
-      }>(this.client, {
-        method: "GET",
-        url: `/projects/waitlist`,
+    delete: async (email: string) => {
+      return await request<{ success: true; data: ICustomer }>(this.client, {
+        method: "DELETE",
+        url: "/customers/delete",
+        body: { email },
       });
     },
   };

@@ -1,18 +1,17 @@
 export interface ICode {
   code: string;
   allowed_claims: number;
-  valid_from: Date;
-  valid_until: Date;
-  active: boolean;
+  validFrom: Date;
+  validUntil: Date;
   claims: number;
-  created_at: Date;
-  last_updated_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface ICustomer {
   email: string;
-  created_at: Date;
-  last_updated_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface ICustomerWithClaim extends ICustomer {
