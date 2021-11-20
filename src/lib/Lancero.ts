@@ -41,19 +41,13 @@ export class Lancero {
     },
     /**
      * Generates new codes
-     * @param {number} [amount=1] The amount of codes to generate
-     * @param {Date} [valid_from=undefined] When this code is allowed to be claimed
-     * @param {Date} [valid_until=undefined] When this code is no longer allowed to be c laimed
-     * @param {number} [allowed_claims=1] How many people may claim this code
-     * @param {boolean} [valid=true] Should this code be active? This parameter overwrites all other limits and will always be able to prevent someone from claiming this code.
      */
-    generate: async (
-      amount?: number,
-      valid_from?: Date,
-      valid_until?: Date,
-      allowed_claims?: number,
-      valid?: boolean
-    ) => {
+    generate: async (details: {
+      amount: number;
+      validFrom?: Date;
+      validUntil?: Date;
+      allowedClaims?: number;
+    }) => {
       return await request<{
         success: true;
         data: ICode[];
@@ -61,11 +55,7 @@ export class Lancero {
         method: "POST",
         url: "/codes/generate",
         body: {
-          amount,
-          valid_from,
-          valid_until,
-          allowed_claims,
-          valid,
+          ...details,
         },
       });
     },
@@ -118,10 +108,8 @@ export class Lancero {
     },
     /**
      * Creates a new customer
-     * @param email {string} The email of the customer
-     * @param  {boolean} [waitlist=false] Should this customer be placed on the waitlist?
      */
-    create: async (email: string, waitlist?: boolean) => {
+    create: async (customer: { email: string; waitlist?: boolean }) => {
       return await request<{
         success: true;
         customer: ICustomer;
@@ -129,8 +117,8 @@ export class Lancero {
         method: "POST",
         url: "/customers/create",
         body: {
-          email,
-          waitlist: waitlist ?? false,
+          email: customer.email,
+          waitlist: customer.waitlist ?? false,
         },
       });
     },

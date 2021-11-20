@@ -1,6 +1,6 @@
 export interface ICode {
   code: string;
-  allowed_claims: number;
+  allowedClaims: number;
   validFrom: Date;
   validUntil: Date;
   claims: number;
@@ -9,7 +9,12 @@ export interface ICode {
 }
 
 export interface ICustomer {
+  firstname: string;
+  lastname: string;
   email: string;
+  notes: string;
+  hasClaimedCode: boolean;
+  onWaitlist: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
