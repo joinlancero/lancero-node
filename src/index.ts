@@ -1,3 +1,3 @@
-import {Lancero} from './lib/Lancero';
+import { Lancero } from "./lib/Lancero";
 
-export {Lancero};
+export default Lancero;
