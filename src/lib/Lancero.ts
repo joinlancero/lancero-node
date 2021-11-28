@@ -1,5 +1,4 @@
 import axios, { AxiosInstance } from "axios";
-import { API_URL } from "./constants";
 import { request } from "../utils/request";
 import { ICode, ICustomer, ICustomerWithClaim } from "../types/api";
 
@@ -7,11 +6,13 @@ export class Lancero {
   private readonly key: string;
   private readonly client: AxiosInstance;
 
-  constructor(key: string) {
+  constructor(key: string, options?: { debug?: boolean }) {
     this.key = key;
 
     this.client = axios.create({
-      baseURL: API_URL,
+      baseURL: options?.debug
+        ? "http://localhost:8080"
+        : "https://api.lancero.app",
       headers: {
         Authorization: `Bearer ${this.key}`,
       },
@@ -109,7 +110,12 @@ export class Lancero {
     /**
      * Creates a new customer
      */
-    create: async (customer: { email: string; waitlist?: boolean }) => {
+    create: async (customer: {
+      email: string;
+      waitlist?: boolean;
+      firstname?: string;
+      lastname?: string;
+    }) => {
       return await request<{
         success: true;
         customer: ICustomer;
@@ -119,6 +125,8 @@ export class Lancero {
         body: {
           email: customer.email,
           waitlist: customer.waitlist ?? false,
+          firstname: customer.firstname,
+          lastname: customer.lastname,
         },
       });
     },
