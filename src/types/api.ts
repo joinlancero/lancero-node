@@ -8,7 +8,7 @@ export interface ICode {
   updatedAt: Date;
 }
 
-export interface ICustomer {
+export interface ILead {
   firstname: string;
   lastname: string;
   email: string;

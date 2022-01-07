@@ -7,25 +7,25 @@ test("Making a connection", async () => {
   );
 
   // Generating codes
-  // const result = await lancero.codes.generate({ amount: 5, allowedClaims: 2 });
+  //const result = await lancero.codes.generate({ amount: 5, allowedClaims: 2 });
 
   // Searching for a code
-  // const code = await lancero.codes.find("severe-sell");
+  //const code = await lancero.codes.find("severe-sell");
 
   // Claiming a code
-  // const claim = await lancero.codes.claim("arid-housing", "inbox@driaug.com");
+  //const claim = await lancero.codes.claim("arid-housing", "inbox@driaug.com");
 
-  // Searching for a customer
-  // const searched_customer = await lancero.customers.find("hello@lancero.app");
+  // Searching for a lad
+  //const lead = await lancero.leads.find("hello@lancero.app");
 
-  // Creating a customer
-  //const created_customer = await lancero.customers.create({
+  // Creating a lead
+  //const created_lead = await lancero.leads.create({
   //  email: "inbox@driaug.com",
   //  waitlist: true,
   //});
 
-  // Deleting a customer
-  //const deleted_customer = await lancero.customers.delete("inbox@driaug.com");
+  // Deleting a lead
+  //const deleted_lead = await lancero.leads.delete("inbox@driaug.com");
 
   // Deleting a code
   //const deleted_code = await lancero.codes.delete("elastic-code");

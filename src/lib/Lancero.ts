@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import { request } from "../utils/request";
-import { ICode, ICustomer } from "../types/api";
+import { ICode, ILead } from "../types/api";
 
 export class Lancero {
   private readonly key: string;
@@ -75,7 +75,7 @@ export class Lancero {
 
       return await request<{
         success: true;
-        data: { customer: ICustomer; code: ICode };
+        data: { customer: ILead; code: ICode };
       }>(this.client, {
         method: "POST",
         url: "/claims/exchange",
@@ -98,7 +98,7 @@ export class Lancero {
     },
   };
 
-  customers = {
+  leads = {
     /**
      * Finds a customer by their email
      * @param email {string}
@@ -106,14 +106,14 @@ export class Lancero {
     find: async (email: string) => {
       return await request<{
         success: true;
-        customer: ICustomer;
+        customer: ILead;
       }>(this.client, {
         method: "GET",
-        url: `/customers/email/${email}`,
+        url: `/leads/email/${email}`,
       });
     },
     /**
-     * Creates a new customer
+     * Creates a new lead
      */
     create: async (customer: {
       email: string;
@@ -123,10 +123,10 @@ export class Lancero {
     }) => {
       return await request<{
         success: true;
-        customer: ICustomer;
+        customer: ILead;
       }>(this.client, {
         method: "POST",
-        url: "/customers/create",
+        url: "/leads/create",
         body: {
           email: customer.email,
           waitlist: customer.waitlist ?? false,
@@ -137,13 +137,13 @@ export class Lancero {
     },
 
     /**
-     * Deletes a customers
-     * @param email {string} The email of the customer
+     * Deletes a lead
+     * @param email {string} The email of the lead
      */
     delete: async (email: string) => {
-      return await request<{ success: true; data: ICustomer }>(this.client, {
+      return await request<{ success: true; data: ILead }>(this.client, {
         method: "DELETE",
-        url: "/customers/delete",
+        url: "/leads/delete",
         body: { email },
       });
     },
