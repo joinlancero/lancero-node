@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import { request } from "../utils/request";
-import { ICode, ICustomer, ICustomerWithClaim } from "../types/api";
+import { ICode, ICustomer } from "../types/api";
 
 export class Lancero {
   private readonly key: string;
@@ -18,9 +18,6 @@ export class Lancero {
       },
       withCredentials: true,
     });
-
-    // We need a way to verify the API key during construction, async in constructors does not work
-    //void request(this.client, { method: "POST", url: "/auth/secret" });
   }
 
   /**
@@ -62,20 +59,28 @@ export class Lancero {
     },
     /**
      * Claims a code
-     * @param code {string} The code you want to claim
-     * @param email {string} The email of the customers that wants to claim this code. If it does not yet exist, we will create a new customer.
      */
-    claim: async (code: string, email: string) => {
-      return await request<{
+    claim: async (data: { code: string; email: string }) => {
+      const result = await request<{
         success: true;
-        customer: string;
-        code: string;
+        data: { token: string };
       }>(this.client, {
         method: "POST",
         url: "/codes/claim",
         body: {
-          code,
-          email,
+          code: data.code,
+          email: data.email,
+        },
+      });
+
+      return await request<{
+        success: true;
+        data: { customer: ICustomer; code: ICode };
+      }>(this.client, {
+        method: "POST",
+        url: "/claims/exchange",
+        body: {
+          token: result.data.token,
         },
       });
     },
@@ -101,7 +106,7 @@ export class Lancero {
     find: async (email: string) => {
       return await request<{
         success: true;
-        customer: ICustomerWithClaim;
+        customer: ICustomer;
       }>(this.client, {
         method: "GET",
         url: `/customers/email/${email}`,

@@ -18,8 +18,3 @@ export interface ICustomer {
   createdAt: Date;
   updatedAt: Date;
 }
-
-export interface ICustomerWithClaim extends ICustomer {
-  has_claimed_code: boolean;
-  claimed_code: { code: string; allowed_claims: number } | undefined;
-}

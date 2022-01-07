@@ -26,7 +26,7 @@ export function request<T>(client: AxiosInstance, request: RequestType) {
         }
 
         if (err.response?.status === 404) {
-          reject(new NotFoundError());
+          reject(new NotFoundError(err.response.data.message));
         }
 
         reject(err.response?.data.message);
