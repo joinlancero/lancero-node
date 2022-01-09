@@ -11,9 +11,12 @@ test("Making a connection", async () => {
 
   // Claiming a code
   //const claim = await lancero.codes.claim({
-  //  code: "slushy-trick",
+  //  code: "coarse-keep",
   //  email: "hello@lancero.app",
   //});
+
+  // Exchanging a claim token
+  // const claim = await lancero.claims.exchange("4501fa85e737df9af5f91ab4");
 
   // Searching for a lead
   //const lead = await lancero.leads.find("hello@lancero.app");

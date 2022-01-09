@@ -18,5 +18,100 @@ Any interaction you want to make with the Lancero API needs to be done through t
 ```js
 import Lancero from '@lancero/node';
 
-const lancero = new Lancero("API-key");
+const lancero = new Lancero("Your secret key");
+```
+
+## API
+### Leads
+#### find()
+Used to search for a lead
+
+##### Parameters
+- String, the email of the lead you want to look up
+```ts
+const lead = await lancero.leads.find("hello@lancero.app");
+```
+
+#### delete()
+Used to delete a lead
+
+##### Parameters
+- String, the email of the lead you want to delete
+```ts
+const lead = await lancero.leads.delete("hello@lancero.app");
+```
+
+#### create()
+Used to create a lead
+
+##### Parameters
+- Object, data
+  - email, the email of the new lead
+  - waitlist (optional, default `false`), should this lead be added to the waitlist
+
+```ts
+const lead = await lancero.leads.create({ 
+  email: "hello@lancero.app",
+  waitlist: true,
+});
+```
+
+### Codes
+#### find()
+Used to search for a code
+
+##### Parameters
+- String, the code you want to look up
+```ts
+const code = await lancero.codes.find("curious-pineapple");
+```
+
+#### delete()
+Used to delete a code
+
+##### Parameters
+- String, the code you want to delete
+```ts
+const code = await lancero.codes.delete("curious-pineapple");
+```
+
+#### generate()
+Used to generate codes
+
+##### Parameters
+- Object, data
+  - amount, the amount of codes you want to generate
+  - validFrom (optional), when this code starts to be valid
+  - validUntil (optional), when this code expires
+  - allowedClaims (optional, default `1`), how many leads are allowed to claim this code
+```ts
+const codes = await lancero.codes.generate({
+  "amount": 3
+});
+```
+
+#### claim()
+Used to claim a code. 
+
+*Note, when using the Node.js library to claim a code we automatically call the exchange endpoint with the received claim token. This `claims.exchange()` method should be used when receiving a claim token via the Lancero Portal.*
+
+##### Parameters
+- Object, data
+  - code, the code you want to claim
+  - email, the email of the lead you want to claim this code for
+```ts
+const claim = await lancero.codes.claim({
+  "code": "curious-pineapple",
+  "lead": "hello@lancero.app",
+});
+```
+
+### Claims
+#### exchange()
+Used to exchange a unique Lancero claim token for the lead and code.
+
+##### Parameters
+- String, the Lancero claim token
+```ts
+const claim = await lancero.claims.exchange("4501fa85e737df9af5f91ab4");
 ```

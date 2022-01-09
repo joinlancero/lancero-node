@@ -73,6 +73,8 @@ export class Lancero {
         },
       });
 
+      console.log(result.data.token);
+
       return await request<{
         success: true;
         data: { customer: ILead; code: ICode };
@@ -100,7 +102,7 @@ export class Lancero {
 
   leads = {
     /**
-     * Finds a customer by their email
+     * Finds a lead by their email
      * @param email {string}
      */
     find: async (email: string) => {
@@ -145,6 +147,23 @@ export class Lancero {
         method: "DELETE",
         url: "/leads/delete",
         body: { email },
+      });
+    },
+  };
+
+  claims = {
+    /**
+     * Exchanges a claim token for the details of a lead and code
+     * @param token {string} The Lancero claim token
+     */
+    exchange: async (token: string) => {
+      return await request<{
+        success: true;
+        data: { lead: ILead; code: ICode };
+      }>(this.client, {
+        method: "POST",
+        url: "/claims/exchange",
+        body: { token },
       });
     },
   };
