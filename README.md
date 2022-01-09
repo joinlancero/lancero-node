@@ -1,9 +1,17 @@
 # Lancero Node.js
 This project contains the helper library for interacting with the Lancero API using Node.js.
 
+## Table of contents
+- [Installation](#installation)
+- [Getting started](#getting-started)
+- [API](#api)
+    - [Leads](#leads)
+    - [Codes](#codes)
+    - [Claims](#claims)
+
 ![Card](https://cdn.lancero.app/assets/card.png)
 
-## Installing
+## Installation
 Installing the latest version can be done through your package manager.
 
 ```shell
