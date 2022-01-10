@@ -92,9 +92,14 @@ Used to generate codes
   - validFrom (optional), when this code starts to be valid
   - validUntil (optional), when this code expires
   - allowedClaims (optional, default `1`), how many leads are allowed to claim this code
+  - type (optional, default `"creative"`), what type of code do you want to generate
+    - `"creative"`, a random adjective and noun (e.g. `curious-pineapple`)
+    - `"alphanumeric"`, a 6 character combination of lowercase letters and digits
+    - `"numeric"`, 6 random digits
 ```ts
 const codes = await lancero.codes.generate({
-  "amount": 3
+  "amount": 3,
+  "type": "creative",
 });
 ```
 

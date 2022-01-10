@@ -45,6 +45,7 @@ export class Lancero {
       validFrom?: Date;
       validUntil?: Date;
       allowedClaims?: number;
+      type?: "creative" | "numeric" | "alphanumeric";
     }) => {
       return await request<{
         success: true;
