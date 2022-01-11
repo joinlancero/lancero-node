@@ -19,7 +19,7 @@ test("Making a connection", async () => {
   // const claim = await lancero.claims.exchange("4501fa85e737df9af5f91ab4");
 
   // Searching for a lead
-  //const lead = await lancero.leads.find("hello@lancero.app");
+  //const lead = await lancero.leads.find("test2@test.com");
 
   // Creating a lead
   //const created_lead = await lancero.leads.create({
@@ -28,7 +28,7 @@ test("Making a connection", async () => {
   //});
 
   // Deleting a lead
-  //const deleted_lead = await lancero.leads.delete("hello@lancero.app");
+  //const deleted_lead = await lancero.leads.delete("test2@test.com");
 
   // Deleting a code
   //const deleted_code = await lancero.codes.delete("elastic-code");

@@ -31,7 +31,7 @@ export class Lancero {
     find: async (code: string) => {
       return await request<{
         success: true;
-        code: ICode;
+        data: ICode;
       }>(this.client, {
         method: "GET",
         url: `/codes/code/${code}`,
@@ -74,8 +74,6 @@ export class Lancero {
         },
       });
 
-      console.log(result.data.token);
-
       return await request<{
         success: true;
         data: { customer: ILead; code: ICode };
@@ -93,7 +91,7 @@ export class Lancero {
      * @param code {string} The code to delete
      */
     delete: async (code: string) => {
-      return await request<{ success: true; code: ICode }>(this.client, {
+      return await request<{ success: true; data: ICode }>(this.client, {
         method: "DELETE",
         url: "/codes/delete",
         body: { code },
@@ -109,7 +107,7 @@ export class Lancero {
     find: async (email: string) => {
       return await request<{
         success: true;
-        customer: ILead;
+        data: ILead;
       }>(this.client, {
         method: "GET",
         url: `/leads/email/${email}`,
@@ -123,10 +121,11 @@ export class Lancero {
       waitlist?: boolean;
       firstname?: string;
       lastname?: string;
+      referralCode?: string;
     }) => {
       return await request<{
         success: true;
-        customer: ILead;
+        data: ILead;
       }>(this.client, {
         method: "POST",
         url: "/leads/create",
@@ -135,6 +134,7 @@ export class Lancero {
           waitlist: customer.waitlist ?? false,
           firstname: customer.firstname,
           lastname: customer.lastname,
+          referralCode: customer.referralCode,
         },
       });
     },

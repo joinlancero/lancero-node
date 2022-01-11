@@ -15,6 +15,12 @@ export interface ILead {
   notes: string;
   hasClaimedCode: boolean;
   onWaitlist: boolean;
+  referralCode: string;
+  referredBy?: {
+    email: string;
+    referralCode: string;
+  };
+  referredLeads: { email: string }[];
   createdAt: Date;
   updatedAt: Date;
 }

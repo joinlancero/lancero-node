@@ -55,6 +55,9 @@ Used to create a lead
 ##### Parameters
 - Object, data
   - email, the email of the new lead
+  - firstname (optional), the firstname of the new lead
+  - lastname (optional), the lastname of the new lead
+  - referralCode (optional), the 8-character referral code of another lead
   - waitlist (optional, default `false`), should this lead be added to the waitlist
 
 ```ts
