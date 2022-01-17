@@ -87,6 +87,20 @@ export class Lancero {
     },
 
     /**
+     * Sends a code to leads
+     */
+    send: async (data: { code: string; leads: string[] }) => {
+      return await request<{
+        success: true;
+        data: { receivedLeads: number; notifiedLeads: number };
+      }>(this.client, {
+        method: "POST",
+        url: "/codes/send",
+        body: { code: data.code, emails: data.leads },
+      });
+    },
+
+    /**
      * Deletes a code
      * @param code {string} The code to delete
      */

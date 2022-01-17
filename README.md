@@ -77,6 +77,20 @@ Used to search for a code
 const code = await lancero.codes.find("curious-pineapple");
 ```
 
+#### send()
+Used to email a code to leads
+
+##### Parameters
+- Object, data
+  - code, the code you want to send
+  - leads, an array of emails you want to send this code to
+```ts
+const result = await lancero.codes.send({
+  code: "fantastic-apple",
+  leads: ["hello@lancero.app", "thelegend27@lancero.app"],
+});
+```
+
 #### delete()
 Used to delete a code
 

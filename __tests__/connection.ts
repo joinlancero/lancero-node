@@ -18,8 +18,14 @@ test("Making a connection", async () => {
   // Exchanging a claim token
   // const claim = await lancero.claims.exchange("4501fa85e737df9af5f91ab4");
 
+  // Sending an email with a code to a lead
+  // const result = await lancero.codes.send({
+  //   code: "rewarding-mine",
+  //   leads: ["hello@lancero.app"],
+  // });
+
   // Searching for a lead
-  //const lead = await lancero.leads.find("test2@test.com");
+  //const lead = await lancero.leads.find("hello@lancero.app");
 
   // Creating a lead
   //const created_lead = await lancero.leads.create({
