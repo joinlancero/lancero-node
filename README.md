@@ -109,6 +109,7 @@ Used to generate codes
   - validFrom (optional), when this code starts to be valid
   - validUntil (optional), when this code expires
   - allowedClaims (optional, default `1`), how many leads are allowed to claim this code
+  - reservedFor (optional), the lead you want to reserve this code for
   - type (optional, default `"creative"`), what type of code do you want to generate
     - `"creative"`, a random adjective and noun (e.g. `curious-pineapple`)
     - `"alphanumeric"`, a 6 character combination of lowercase letters and digits
@@ -117,6 +118,7 @@ Used to generate codes
 const codes = await lancero.codes.generate({
   "amount": 3,
   "type": "creative",
+  "reservedFor": "hello@lancero.app"
 });
 ```
 
