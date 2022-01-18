@@ -1,8 +1,8 @@
 export interface ICode {
   code: string;
   allowedClaims: number;
-  validFrom: Date;
-  validUntil: Date;
+  validFrom: Date | null;
+  validUntil: Date | null;
   claims: number;
   createdAt: Date;
   updatedAt: Date;
