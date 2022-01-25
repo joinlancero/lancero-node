@@ -8,6 +8,7 @@ This project contains the helper library for interacting with the Lancero API us
     - [Leads](#leads)
     - [Codes](#codes)
     - [Claims](#claims)
+    - [Webhooks](#webhooks)
 
 ![Card](https://cdn.lancero.app/assets/card.png)
 
@@ -146,4 +147,23 @@ Used to exchange a unique Lancero claim token for the lead and code.
 - String, the Lancero claim token
 ```ts
 const claim = await lancero.claims.exchange("4501fa85e737df9af5f91ab4");
+```
+
+### Webhooks
+#### construct()
+Used to exchange a webhook event for data.
+
+##### Parameters
+- String, the event your webhook received
+```ts
+const event = await lancero.webhooks.construct("fdbc0cc8-7718-4e4f-a8cb-c969d31b543e");
+
+// Get the type of the event
+if (event.data.event === 'LEAD_CREATION') {
+    // This webhook was triggered because a lead was created
+}
+
+if (event.data.event === 'CODE_CLAIM') {
+    // This webhook was triggered because a code was claimed
+}
 ```
