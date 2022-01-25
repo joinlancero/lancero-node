@@ -183,4 +183,19 @@ export class Lancero {
       });
     },
   };
+
+  webhooks = {
+    construct: async (event: string) => {
+      return await request<{
+        success: true;
+        data:
+          | { event: "LEAD_CREATION"; data: ILead }
+          | { event: "CODE_CLAIM"; data: { lead: ILead; code: ICode } };
+      }>(this.client, {
+        method: "POST",
+        url: "/webhooks/construct",
+        body: { event },
+      });
+    },
+  };
 }

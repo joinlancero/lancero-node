@@ -38,4 +38,9 @@ test("Making a connection", async () => {
 
   // Deleting a code
   // const deleted_code = await lancero.codes.delete("elastic-code");
+
+  // Constructing a webhook event
+  // const event = await lancero.webhooks.construct(
+  //     "2a10ae5b-f931-445d-8a56-bb53526de134"
+  // );
 });
