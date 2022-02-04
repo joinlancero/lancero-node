@@ -7,12 +7,12 @@ test("Making a connection", async () => {
   //const result = await lancero.codes.generate({ amount: 5, allowedClaims: 2 });
 
   // Searching for a code
-  // const code = await lancero.codes.find("worthless-sign");
+  // const code = await lancero.codes.find("dishonest-name");
 
   // Claiming a code
   // const claim = await lancero.codes.claim({
-  //  code: "coarse-keep",
-  //  email: "hello@lancero.app",
+  //   code: "prestigious-smoke",
+  //   email: "test1@driaug.com",
   // });
 
   // Exchanging a claim token

@@ -3,7 +3,9 @@ export interface ICode {
   allowedClaims: number;
   validFrom: Date | null;
   validUntil: Date | null;
-  reservedFor: string | null;
+  reservedFor?: {
+    email: string;
+  };
   claims: number;
   createdAt: Date;
   updatedAt: Date;
