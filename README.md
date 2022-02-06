@@ -163,6 +163,10 @@ if (event.data.event === 'LEAD_CREATION') {
     // This webhook was triggered because a lead was created
 }
 
+if (event.data.event === 'CODE_CREATION') {
+  // This webhook was triggered because a code was generated
+}
+
 if (event.data.event === 'CODE_CLAIM') {
     // This webhook was triggered because a code was claimed
 }

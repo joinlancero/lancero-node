@@ -1,6 +1,6 @@
 {
   "name": "@lancero/node",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Official Node.js library for Lancero.app",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

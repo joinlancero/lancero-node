@@ -190,7 +190,8 @@ export class Lancero {
         success: true;
         data:
           | { event: "LEAD_CREATION"; data: ILead }
-          | { event: "CODE_CLAIM"; data: { lead: ILead; code: ICode } };
+          | { event: "CODE_CLAIM"; data: { lead: ILead; code: ICode } }
+          | { event: "CODE_CREATION"; data: ICode };
       }>(this.client, {
         method: "POST",
         url: "/webhooks/construct",
